@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <!-- jquery CDN-->
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/findPw.css">
+    <script src="/js/findPw.js"></script>
+</head>
+<body>
+<div id="wrap">
+    <h1> 비밀번호찾기 페이지 </h1>
+    <div id="input-pw">
+        <span>아이디 : </span><input type="text" id="userId" name="userId"> <br>
+        <span>이메일 : </span><input type="email" id="email" name="email">
+        <button type="button" id="sendBtn" name="sendBtn">인증코드발급</button> <br>
+        <span>인증코드 확인 : </span><input type="text" id="emailCode" name="emailCode">
+        <button type="button" name="confirmBtn" id="confirmBtn">인증코드확인</button>
+        <input type="hidden" id="Confirm" name="Confirm"  value=""><br>
+        <button id=find-pw-bt type="button">임시 비밀번호 발급</button>
+
+    </div>
+</div>
+</body>
+
+</html>

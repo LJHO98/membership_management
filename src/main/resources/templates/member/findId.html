@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <!-- jquery CDN-->
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/findId.css">
+    <script src="/js/findId.js"></script>
+</head>
+<body>
+    <div id="wrap">
+    <h1> 아이디 찾기 페이지 </h1>
+        <div id="input-id">
+            <span>이메일 : </span><input type="text" id="email" name="email"><button id=find-id-bt type="button">찾기</button>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragment/main}">
+<head>
+  <meta charset="UTF-8">
+  <title layout:fragment="title"></title>
+
+  <th:block layout:fragment="css">
+    <link rel="stylesheet" href="/css/login.css">
+  </th:block>
+  <th:block layout:fragment="script"></th:block>
+</head>
+<div layout:fragment="main" id="main">
+
+  <div id="loginWrap">
+    <form method="post" action="/member/signIn" >
+      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+      <div class="formData">
+        <div class="formTitle">로그인</div>
+        <div class="inputField">
+          <input type="text" name="userId" id="userId" placeholder="ID">
+        </div>
+        <div class="inputField">
+          <input type="password" name="password" id="password" placeholder="PASSWORD">
+        </div>
+
+        <p th:if="${loginFailMsg}" th:text="${loginFailMsg}"
+           style="color:red; padding-bottom:20px;"></p>
+
+        <div class="loginBt">
+          <button>Login</button>
+        </div>
+      </div>
+
+    </form>
+
+    <div class="forget">
+      <a href="/member/findId">아이디 찾기</a>
+      <a href="/member/findPw">비밀번호 찾기</a>
+    </div>
+    <div class="joinLink">
+      <a href="/member/signUp">회원가입</a>
+    </div>
+
+  </div>
+
+</div>
+</html>

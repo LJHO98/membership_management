@@ -1,0 +1,23 @@
+#wrap{
+    padding: 100px;
+    margin: 0 auto;
+    width: 400px;
+    margin-top: 200px;
+    border: 10px solid #aaa;
+    border-radius: 10px;
+}
+#wrap h1{
+    position: relative;
+    margin-left: 80px;
+}
+#wrap #input-id{
+    border-radius: 5px;
+    margin-left: 75px;
+    font-weight: 700;
+    }
+#wrap input{
+    border: 2px solid #aaa;
+}
+#wrap #input-id #find-id-bt{
+    border-radius: 5px;
+}

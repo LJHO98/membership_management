@@ -1,0 +1,24 @@
+#wrap{
+        padding: 0;
+        margin: 100px auto;
+        border: 10px solid #aaa;
+        border-radius: 10px;
+        height: 500px;
+        width: 600px;
+}
+#wrap h1{
+        position: relative;
+        margin: 100px;
+}
+#wrap #input-pw{
+    border-radius: 5px;
+    margin-left: 170px;
+    font-weight: 700;
+    margin: 100px;
+    position: relative;
+    height: 100px;
+}
+#wrap #input-pw span{
+    margin-left: 55px;
+    font-size:20px;
+}
