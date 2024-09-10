@@ -1,24 +1,78 @@
-#wrap{
-        padding: 0;
-        margin: 100px auto;
-        border: 10px solid #aaa;
-        border-radius: 10px;
-        height: 500px;
-        width: 600px;
+#wrap {
+    margin: 150px auto 200px auto;
+    width: 900px; /* 박스를 더 넓게 설정 */
+    font-size: 30px;
 }
-#wrap h1{
-        position: relative;
-        margin: 100px;
-}
-#wrap #input-pw{
-    border-radius: 5px;
-    margin-left: 170px;
+
+#wrap h1 {
     font-weight: 700;
-    margin: 100px;
-    position: relative;
-    height: 100px;
+    text-align: center;
+    padding: 30px 0;
+    background: black;
+    color: white;
+    border-radius: 10px;
+    margin-bottom: 30px;
 }
-#wrap #input-pw span{
-    margin-left: 55px;
-    font-size:20px;
+
+#input-pw {
+    width: 100%;
+    position: relative;
+    border: 1px solid #ccc;
+    padding: 50px;
+    border-radius: 10px;
+    box-sizing: border-box; /* 박스 사이즈를 동일하게 설정 */
+}
+
+.input-group {
+    display: flex; /* 한 줄로 보이게 설정 */
+    align-items: center; /* 수직 정렬 */
+    margin-bottom: 20px; /* 각 그룹 간의 간격 설정 */
+}
+
+#input-pw span {
+    font-size: 27px;
+    margin-right: 10px;
+    white-space: nowrap; /* 텍스트가 줄바꿈되지 않도록 설정 */
+}
+
+#input-pw input {
+    outline: none;
+    border: 1px solid #aaa;
+    border-radius: 10px;
+    height: 50px;
+    padding: 5px 10px;
+    font-size: 27px;
+    flex-grow: 1; /* 입력 박스가 남은 공간을 차지하게 설정 */
+    margin-right: 10px;
+    box-sizing: border-box; /* 박스 사이즈를 동일하게 설정 */
+}
+
+#sendBtn, #confirmBtn {
+    border: 0;
+    background: #fff;
+    font-size: 32px;
+    font-weight: 700;
+    width: 200px; /* 버튼의 너비 설정 */
+    border: 1px solid #aaa;
+    border-radius: 10px;
+    padding: 10px 0;
+    box-sizing: border-box; /* 박스 사이즈를 동일하게 설정 */
+}
+
+#find-pw-bt {
+    border: 0;
+    background: #fff;
+    font-size: 32px;
+    font-weight: 700;
+    width: 100%; /* 버튼의 너비를 100%로 설정 */
+    border: 1px solid #aaa;
+    border-radius: 10px;
+    padding: 10px 0;
+    box-sizing: border-box; /* 박스 사이즈를 동일하게 설정 */
+    margin-top: 10px; /* 버튼 간의 간격 설정 */
+}
+
+#sendBtn:hover, #confirmBtn:hover, #find-pw-bt:hover {
+    background: #aaa;
+    color: #fff;
 }

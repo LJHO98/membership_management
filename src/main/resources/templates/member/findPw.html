@@ -12,16 +12,24 @@
 </head>
 <body>
 <div id="wrap">
-    <h1> 비밀번호찾기 페이지 </h1>
+    <h1>비밀번호찾기 페이지</h1>
     <div id="input-pw">
-        <span>아이디 : </span><input type="text" id="userId" name="userId"> <br>
-        <span>이메일 : </span><input type="email" id="email" name="email">
-        <button type="button" id="sendBtn" name="sendBtn">인증코드발급</button> <br>
-        <span>인증코드 확인 : </span><input type="text" id="emailCode" name="emailCode">
-        <button type="button" name="confirmBtn" id="confirmBtn">인증코드확인</button>
-        <input type="hidden" id="Confirm" name="Confirm"  value=""><br>
-        <button id=find-pw-bt type="button">임시 비밀번호 발급</button>
-
+        <div class="input-group">
+            <span>아이디 : </span>
+            <input type="text" id="userId" name="userId">
+        </div>
+        <div class="input-group">
+            <span>이메일 : </span>
+            <input type="email" id="email" name="email">
+            <button type="button" id="sendBtn" name="sendBtn">인증코드발급</button>
+        </div>
+        <div class="input-group">
+            <span>인증코드 확인 : </span>
+            <input type="text" id="emailCode" name="emailCode">
+            <button type="button" name="confirmBtn" id="confirmBtn">인증코드확인</button>
+        </div>
+        <input type="hidden" id="Confirm" name="Confirm" value="">
+        <button id="find-pw-bt" type="button">임시 비밀번호 발급</button>
     </div>
 </div>
 </body>

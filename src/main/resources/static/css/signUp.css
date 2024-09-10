@@ -1,4 +1,4 @@
-/* -- join.css -- */
+
 
 #joinWrap{
     width: 700px;
@@ -33,7 +33,7 @@
 
 #terms{
     width: 100%;
-    padding: 0px 100px;
+
 }
 
 #terms h3{
@@ -44,7 +44,7 @@
 #terms textarea{
     width: 100%;
     resize: none;
-    padding: 20px;
+
     height: 150px;
     border: 1px solid #dcdcdc;
     line-height: 1.6em;

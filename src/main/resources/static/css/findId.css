@@ -1,23 +1,61 @@
-#wrap{
-    padding: 100px;
-    margin: 0 auto;
-    width: 400px;
-    margin-top: 200px;
-    border: 10px solid #aaa;
-    border-radius: 10px;
+#wrap {
+    margin: 150px auto 200px auto;
+    width: 700px; /* 박스를 더 넓게 설정 */
+    font-size: 30px;
 }
-#wrap h1{
-    position: relative;
-    margin-left: 80px;
-}
-#wrap #input-id{
-    border-radius: 5px;
-    margin-left: 75px;
+
+#wrap h1 {
     font-weight: 700;
-    }
-#wrap input{
-    border: 2px solid #aaa;
+    text-align: center;
+    padding: 30px 0;
+    background: black;
+    color: white;
+    border-radius: 10px;
+    margin-bottom: 30px;
 }
-#wrap #input-id #find-id-bt{
-    border-radius: 5px;
+
+#input-id {
+    width: 100%;
+    position: relative;
+    border: 1px solid #ccc;
+    padding: 50px;
+    border-radius: 10px;
+    display: flex; /* 한 줄로 보이게 설정 */
+    align-items: center; /* 수직 정렬 */
+    box-sizing: border-box; /* 박스 사이즈를 동일하게 설정 */
+}
+
+#input-id span {
+    font-size: 27px;
+    margin-right: 10px;
+    white-space: nowrap; /* 텍스트가 줄바꿈되지 않도록 설정 */
+}
+
+#input-id input {
+    outline: none;
+    border: 1px solid #aaa;
+    border-radius: 10px;
+    height: 50px;
+    padding: 5px 10px;
+    font-size: 27px;
+    flex-grow: 1; /* 입력 박스가 남은 공간을 차지하게 설정 */
+    margin-right: 10px;
+    box-sizing: border-box; /* 박스 사이즈를 동일하게 설정 */
+}
+
+#find-id-bt {
+    border: 0;
+    background: #fff;
+    font-size: 32px;
+    font-weight: 700;
+    width: 150px; /* 버튼의 너비 설정 */
+    border: 1px solid #aaa;
+    border-radius: 10px;
+    padding: 10px 0;
+    box-sizing: border-box; /* 박스 사이즈를 동일하게 설정 */
+}
+
+#find-id-bt:hover {
+    background: #aaa;
+    color: #fff;
 }
