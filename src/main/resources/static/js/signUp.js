@@ -60,7 +60,11 @@ function joinShow(){
 
 $(function(){
     $("#sendBtn").click(function(){
-        if($("#email").val() != ''){
+        //이메일 정규 표현식 정의
+        var regex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+        //이메일 input 태그의 value값이 이메일 형식과 일치할 경우
+        if(regex.test($("#email").val())){
+            $(".emailCodeField").css('display', 'block');
             sendNumber();
         }else{
             alert("이메일을 입력해주세요");

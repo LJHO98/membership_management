@@ -136,20 +136,22 @@
         </div>
         <div class="inputField">
           <label th:for="email">E-MAIL</label>
-          <input type="email" th:field="*{email}" class="formInput"
-                 placeholder="Email을 입력하세요">
-          <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
-             class="fieldError"></p>
-          <button type="button" id="sendBtn" name="sendBtn">인증번호</button>
+          <div class="inputEmail">
+            <input type="email" th:field="*{email}" class="formInput email"
+                   placeholder="Email을 입력하세요">
+            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+               class="fieldError"></p>
+            <button type="button" id="sendBtn" name="sendBtn">인증번호 받기</button>
+          </div>
         </div>
-        <div class="inputField">
-          <label for="emailCode">E-MAIL 인증 코드</label>
-          <input type="text" id="emailCode" class="formInput"
-                 placeholder="Email 인증코드를 입력하세요">
-          <button type="button" name="confirmBtn" id="confirmBtn">이메일 인증</button>
+        <div class="inputField emailCodeField" style="display:none">
+          <label th:for="email">인증 코드</label>
+          <div class="inputEmail">
+            <input type="text" id="emailCode" name = "emailCode" class="formInput emailCode"
+                   placeholder="인증코드를 입력하세요">
+            <button type="button" id="confirmBtn" name="confirmBtn">인증</button>
+          </div>
         </div>
-        <br>
-        <input type="hidden" id="Confirm" name="Confirm"  value="">
 
         <div class="inputField">
           <label th:for="name">이름</label>

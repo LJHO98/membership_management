@@ -24,17 +24,8 @@ public class MailControl {
     private final FindIdService findIdService;
     private final FindPwService findPwService;
 
-//    @ResponseBody
-//    @PostMapping("/mail")
-//    public String MailSend(String mail){
-//        int number = mailService.sendMail(mail);
-//        String num = "" + number;
-//        return num;
-//    }
-
-
     @PostMapping("/findId")
-    public @ResponseBody ResponseEntity findId(String email){
+    public @ResponseBody ResponseEntity findId(String email) {
         findIdService.sendMail(email);
         return new ResponseEntity<String>("이메일을 확인하세요", HttpStatus.OK);
     }
@@ -59,21 +50,11 @@ public class MailControl {
 
     // 인증코드 인증
     @PostMapping("/verifyCode")
-    public @ResponseBody ResponseEntity<String> verifyCode( @RequestParam("emailCode") String emailCode,
-                                                            @RequestParam("email") String email){
+    public @ResponseBody ResponseEntity<String> verifyCode(@RequestParam("emailCode") String emailCode,
+                                                           @RequestParam("email") String email) {
         if (emailService.verifyEmailCode(email, emailCode)) {
             return ResponseEntity.ok("인증 성공");
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("인증 실패: 잘못된 인증 코드입니다.");
     }
-
-
-
-//    @PostMapping("/{email_addr}/authcode")
-//    public ResponseEntity<String> sendEmailAndCode(@PathVariable String email_addr, @RequestBody EmailRequestDto dto) throws NoSuchAlgorithmException {
-//        if (emailService.verifyEmailCode(email_addr, dto.getCode())) {
-//            return ResponseEntity.ok(emailService.makeMemberId(email_addr));
-//        }
-//        return ResponseEntity.notFound().build();
-//    }
 }

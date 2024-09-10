@@ -172,10 +172,45 @@
 }
 
 #joinForm .joinBt{
+    width:80%;
     margin-top: 50px;
+    cursor:pointer;
 }
 
 #joinForm .fieldError{
     color:red;
     padding-left: 50px;
 }
+
+#joinForm .inputEmail{
+    display:flex;
+    width:80%;
+
+ }
+
+ #joinForm .inputEmail .email{
+    width:70%;
+ }
+ #joinForm .inputEmail .emailCode{
+     width:45%;
+  }
+
+ #joinForm #sendBtn{
+      width: 20%;
+      background: #3d435f;
+      color: #fff;
+      border: 0;
+      border-radius: 50px;
+      padding: 5px 0;
+      cursor: pointer;
+  }
+
+  #joinForm #confirmBtn{
+        width: 20%;
+        background: #3d435f;
+        color: #fff;
+        border: 0;
+        border-radius: 50px;
+        padding: 5px 0;
+        cursor: pointer;
+    }

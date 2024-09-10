@@ -72,103 +72,123 @@
      margin: 0 auto;
      padding: 100px 0;
      position: relative;
- }
+}
 
- #joinForm{
-     width: 100%;
-     padding: 50px 100px;
- }
+#joinForm{
+    width: 100%;
+    padding: 50px 100px;
+}
 
- #joinForm .inputField{
-     display: flex;
-     flex-wrap: wrap;
-     align-items: center;
-     justify-content: space-between;
-     margin-bottom: 15px;
- }
+#joinForm .inputField{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
 
- #joinForm .inputField label{
-     width: 25%;
- }
+#joinForm .inputField label{
+    width: 25%;
+}
 
- #joinForm .inputField input{
-     width: 75%;
-     font-size: 17px;
-     padding: 7px 15px;
-     border: 0;
-     border-bottom: 1px solid #aaa;
- }
+#joinForm .inputField input{
+    width: 75%;
+    font-size: 17px;
+    padding: 7px 15px;
+    border: 0;
+    border-bottom: 1px solid #aaa;
+}
 
+#joinForm .inputField input:not(:placeholder-shown){
+    border-color: black;
+    border-width: 2px;
+}
 
+#joinForm #zipCode{
+    width: 20%;
+}
 
- #joinForm .inputField input:not(:placeholder-shown){
-     border-color: black;
-     border-width: 2px;
- }
+#joinForm .btn-zipCode{
+    width: 20%;
+    margin-right: 30%;
+    background: #3d435f;
+    color: #fff;
+    border: 0;
+    border-radius: 50px;
+    padding: 5px 0;
+    cursor: pointer;
+}
 
- #joinForm #zipCode{
-     width: 20%;
- }
+#joinForm #btn-join{
+    background: #3d435f;
+    color: #fff;
+    border: 0;
+    border-radius: 50px;
+    width: 80%;
+    padding: 15px 0;
+    font-size: 20px;
+}
 
- #joinForm .btn-zipCode{
-     width: 20%;
-     margin-right: 30%;
-     background: #3d435f;
-     color: #fff;
-     border: 0;
-     border-radius: 50px;
-     padding: 5px 0;
-     cursor: pointer;
- }
+#joinForm .joinBt{
+    margin-top: 50px;
+}
 
- #joinForm #btn-join{
-     background: #3d435f;
-     color: #fff;
-     border: 0;
-     border-radius: 50px;
-     width: 80%;
-     padding: 15px 0;
-     font-size: 20px;
- }
+#joinForm .fieldError{
+    color:red;
+    padding-left: 50px;
+}
 
- #joinForm .joinBt{
-     margin-top: 50px;
- }
-
- #joinForm .fieldError{
-     color:red;
-     padding-left: 50px;
- }
-
- #joinForm .inputEmail{
+#joinForm .inputEmail{
     display:flex;
     width:80%;
+}
 
- }
-
- #joinForm .inputEmail .email{
+#joinForm .inputEmail .email{
     width:70%;
- }
- #joinForm .inputEmail .emailCode{
-     width:45%;
-  }
+}
+#joinForm .inputEmail .emailCode{
+    width:45%;
+}
 
- #joinForm #sendBtn{
-      width: 20%;
-      background: #3d435f;
-      color: #fff;
-      border: 0;
-      border-radius: 50px;
-      padding: 5px 0;
-      cursor: pointer;
-  }
+#joinForm #sendBtn{
+    width: 20%;
+    background: #3d435f;
+    color: #fff;
+    border: 0;
+    border-radius: 50px;
+    padding: 5px 0;
+     cursor: pointer;
+}
 
-  #joinForm #verifyBtn{
-        width: 20%;
-        background: #3d435f;
-        color: #fff;
-        border: 0;
-        border-radius: 50px;
-        padding: 5px 0;
-        cursor: pointer;
-    }
+#joinForm #verifyBtn{
+    width: 20%;
+    background: #3d435f;
+    color: #fff;
+    border: 0;
+    border-radius: 50px;
+    padding: 5px 0;
+    cursor: pointer;
+}
+
+#joinForm .userKeyInfo{
+    width:80%;
+    display:flex;
+}
+
+#joinForm .userKeyInfo #userId{
+    width:70%;
+}
+
+#joinForm #changePwBtn{
+    width: 20%;
+    background: #3d435f;
+    color: #fff;
+    border: 0;
+    border-radius: 50px;
+    padding: 5px 0;
+     cursor: pointer;
+}
+
+
+
+

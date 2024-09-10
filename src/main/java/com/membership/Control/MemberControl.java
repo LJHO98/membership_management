@@ -93,6 +93,15 @@ public class MemberControl {
         return "member/userInfo";
     }
 
+    //비밀번호 변경
+
+
+
+
+
+    //이메일 변경시 이메일 중복확인 후 인증 코드 전송
+
+
 
 
 }
