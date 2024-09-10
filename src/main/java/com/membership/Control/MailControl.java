@@ -36,7 +36,7 @@ public class MailControl {
     @PostMapping("/findId")
     public @ResponseBody ResponseEntity findId(String email){
         findIdService.sendMail(email);
-        return new ResponseEntity<Integer>(0, HttpStatus.OK);
+        return new ResponseEntity<String>("이메일을 확인하세요", HttpStatus.OK);
     }
 
 
@@ -46,8 +46,7 @@ public class MailControl {
     public @ResponseBody ResponseEntity sendEmail(String email) {
         MailDto dto = findPwService.createMailAndChangePassword(email);
         findPwService.mailSend(dto);
-
-        return new ResponseEntity<Integer>(0, HttpStatus.OK);
+        return new ResponseEntity<String>("이메일을 확인하세요", HttpStatus.OK);
     }
 
 

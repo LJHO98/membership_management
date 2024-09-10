@@ -82,6 +82,7 @@ public class MemberControl {
         return "member/login";
     }
 
+    //유저 정보 조회
     @GetMapping("/userInfo/{userName}")
     public String userInfo(@PathVariable("userName") String userName, Model model, Principal principal){
         if(!Objects.equals(principal.getName(), userName)){

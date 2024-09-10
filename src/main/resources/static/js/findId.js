@@ -10,13 +10,13 @@ function findId(){
     $.ajax({
                 url:"/findId",
                 type:"post",
-                dataType:"json",
+                dataType:"text",
                 data:{"email" : $("#email").val()},
                 beforeSend : function(xhr){
                             xhr.setRequestHeader(header, token);
                 },
                 success:function(data){
-                    alert("해당 이메일로 아이디 전송");
+                    alert(data);
                     location.href="/member/signIn";
 
                 },

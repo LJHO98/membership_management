@@ -69,6 +69,7 @@ $(function(){
     });
 });
 
+//인증 번호 전송
 function sendNumber(){
     var token = $("meta[name=_csrf]").attr("content");
     var header = $("meta[name=_csrf_header]").attr("content");
@@ -94,6 +95,7 @@ function sendNumber(){
         });
 }
 
+//인증 번호 확인
 function confirmCode(){
     var token = $("meta[name=_csrf]").attr("content");
     var header = $("meta[name=_csrf_header]").attr("content");
