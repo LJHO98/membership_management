@@ -65,6 +65,7 @@ $(function(){
         }else{
             alert("이메일을 입력해주세요");
         }
+
     });
 });
 
@@ -74,18 +75,17 @@ function sendNumber(){
         $.ajax({
             url:"/mail",
             type:"post",
-            dataType:"json",
-            data:{"mail" : $("#email").val()},
+            dataType:"text",
+            data:{"email" : $("#email").val()},
             beforeSend : function(xhr){
                         xhr.setRequestHeader(header, token);
             },
             success:function(data){
-                alert("인증번호 발송");
+                alert(data);
                 //인증번호 확인버튼 활성화
                 $("#confirmBtn").click(function(){
-                    confirmNumber();
+                confirmCode();
                 });
-                $("#Confirm").attr("value", data);
             },
             error:function(){
                 alert("인증번호 발송실패");
@@ -94,15 +94,42 @@ function sendNumber(){
         });
 }
 
-//인증번호 확인
-function confirmNumber(){
-    var number1 = $("#emailCode").val();
-    var number2 = $("#Confirm").val();
+function confirmCode(){
+    var token = $("meta[name=_csrf]").attr("content");
+    var header = $("meta[name=_csrf_header]").attr("content");
+        $.ajax({
+            url:"/verifyCode",
+            type:"post",
+            dataType:"text",
+            data:{"emailCode" : $("#emailCode").val(),
+                  "email" : $("#email").val()},
+            beforeSend : function(xhr){
+            xhr.setRequestHeader(header, token);
+            },
+            success:function(data){
+                alert(data);
+                $("#btn-join").attr("type", "submit");
+            },
+            error: function(xhr, status, error) {
+            // 오류 발생 시 상세 정보 출력
+                alert(xhr.responseText + "\n상태: " + status + "\n에러: " + error);
+            }
 
-    if(number1 == number2 && number1 != '' && number2 != ''){
-        alert("인증성공");
-        $("#btn-join").attr("type", "submit");
-    }else{
-        alert("인증실패");
-    }
+
+        });
 }
+
+
+
+//인증번호 확인
+//function confirmNumber(){
+//    var number1 = $("#emailCode").val();
+//    var number2 = $("#Confirm").val();
+//
+//    if(number1 == number2 && number1 != '' && number2 != ''){
+//        alert("인증성공");
+//        $("#btn-join").attr("type", "submit");
+//    }else{
+//        alert("인증실패");
+//    }
+//}

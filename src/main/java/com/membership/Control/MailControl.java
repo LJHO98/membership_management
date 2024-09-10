@@ -51,12 +51,24 @@ public class MailControl {
     }
 
 
-    // 수정
+    // 인증코드 전송
     @PostMapping("/mail")
-    public @ResponseBody ResponseEntity<String> sendEmailPath(String mail) throws MessagingException {
-        emailService.sendEmail(mail);
-        return ResponseEntity.ok("이메일을 확인하세요");
+    public @ResponseBody ResponseEntity<String> sendEmailPath(String email) throws MessagingException {
+        emailService.sendEmail(email);
+        return new ResponseEntity<String>("이메일을 확인하세요", HttpStatus.OK);
     }
+
+    // 인증코드 인증
+    @PostMapping("/verifyCode")
+    public @ResponseBody ResponseEntity<String> verifyCode( @RequestParam("emailCode") String emailCode,
+                                                            @RequestParam("email") String email){
+        if (emailService.verifyEmailCode(email, emailCode)) {
+            return ResponseEntity.ok("인증 성공");
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("인증 실패: 잘못된 인증 코드입니다.");
+    }
+
+
 
 //    @PostMapping("/{email_addr}/authcode")
 //    public ResponseEntity<String> sendEmailAndCode(@PathVariable String email_addr, @RequestBody EmailRequestDto dto) throws NoSuchAlgorithmException {
