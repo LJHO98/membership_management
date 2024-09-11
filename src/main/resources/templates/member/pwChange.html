@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>비밀번호 변경</title>
+    <link rel="stylesheet" href="/css/pwChange.css">
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="/js/pwChange.js"></script>
+</head>
+<body>
+<div id="changeWrap">
+    <div id="changeForm">
+        <div class="infoTitle">
+            <h3 class="titleText">비밀번호 변경</h3>
+        </div>
+        <form method="post" action="/member/pwChange" th:object="${pwChange}">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <input type="hidden" th:field="*{userId}" />
+            <div class="formData">
+                <div class="inputField">
+                    <label th:for="Password">기존 비밀번호</label>
+                    <input type="password" th:field="*{currentPassword}" class="formInput"
+                           placeholder="기존 비밀번호를 작성해 주세요"/>
+                    <p th:if="${#fields.hasErrors('currentPassword')}" th:errors="*{currentPassword}"
+                       class="fieldError"></p>
+                </div>
+                <div class="inputField">
+                    <label th:for="newPassword">새로운 비밀번호</label>
+                    <input type="password" th:field="*{newPassword}" class="formInput"
+                           placeholder="새로운 비밀번호를 입력하세요"/>
+                    <p th:if="${#fields.hasErrors('newPassword')}" th:errors="*{newPassword}"
+                       class="fieldError"></p>
+                </div>
+                <div class="inputField">
+                    <label th:for="confirmNewPassword">비밀번호 확인</label>
+                    <input type="password" th:field="*{confirmNewPassword}" class="formInput"
+                           placeholder="비밀번호를 다시 입력하세요"/>
+                    <p th:if="${#fields.hasErrors('confirmNewPassword')}" th:errors="*{confirmNewPassword}"
+                       class="fieldError"></p>
+                </div>
+                <div class="changeBt">
+                    <button id="btn-change" type="submit">비밀번호 변경</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

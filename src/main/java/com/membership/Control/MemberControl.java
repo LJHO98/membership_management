@@ -1,6 +1,7 @@
 package com.membership.Control;
 
 import com.membership.Dto.MemberForm;
+import com.membership.Dto.PwChange;
 import com.membership.Dto.UserInfo;
 import com.membership.Service.MailService;
 import com.membership.Service.MemberService;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -93,6 +95,32 @@ public class MemberControl {
         return "member/userInfo";
     }
 
+    //비밀번호 변경
+    @GetMapping("/pwChange")
+    public String showChangePasswordForm(Model model) {
+        model.addAttribute("pwChange", new PwChange());
+        return "member/pwChange";
+    }
 
+    @PostMapping("/pwChange")
+    public String changePassword(@ModelAttribute PwChange pwChange, RedirectAttributes redirectAttributes) {
 
+        try {
+
+            System.out.println("Changing password for userId: " + pwChange.getUserId());
+            System.out.println("Current Password: " + pwChange.getCurrentPassword());
+            System.out.println("New Password: " + pwChange.getNewPassword());
+            System.out.println("Confirm New Password: " + pwChange.getConfirmNewPassword());
+
+            memberService.changePassword(pwChange);
+            redirectAttributes.addFlashAttribute("message", "비밀번호가 성공적으로 변경되었습니다.");
+            return "redirect:/member/signIn";
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/member/pwChange";
+        }
+    }
 }
+
+
+

@@ -1,0 +1,79 @@
+#changeWrap {
+    width: 700px;
+    margin: 0 auto;
+    padding: 50px 0;
+    position: relative;
+}
+
+#changeForm {
+    width: 100%;
+    padding: 30px 50px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+}
+
+.infoTitle {
+    margin-bottom: 20px;
+}
+
+.titleText {
+    font-size: 24px;
+    color: #333;
+}
+
+.formData {
+    margin: 20px 0;
+}
+
+.inputField {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.inputField label {
+    width: 30%;
+    font-size: 16px;
+}
+
+.inputField input {
+    width: 70%;
+    font-size: 16px;
+    padding: 10px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+}
+
+.inputField input:focus {
+    border-color: #3d435f;
+    border-width: 2px;
+}
+
+.fieldError {
+    color: red;
+    font-size: 12px;
+    padding-left: 10px;
+}
+
+.changeBt {
+    text-align: center;
+    margin-top: 30px;
+}
+
+#btn-change {
+    background: #3d435f;
+    color: #fff;
+    border: 0;
+    border-radius: 50px;
+    width: 100%;
+    padding: 10px 0;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+#btn-change:hover {
+    background: #2c2f3a;
+}
