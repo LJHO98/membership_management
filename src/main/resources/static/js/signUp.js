@@ -47,6 +47,19 @@ $(function(){
         addrSearch();
     });
 
+    $("#sendBtn").click(function(){
+            //이메일 정규 표현식 정의
+            var regex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+            //이메일 input 태그의 value값이 이메일 형식과 일치할 경우
+            if(regex.test($("#email").val())){
+                $(".emailCodeField").css('display', 'block');
+                $("#sendBtn").prop('disabled',true);
+                sendNumber();
+            }else{
+                alert("이메일을 입력해주세요");
+            }
+
+    });
 
 });
 
@@ -57,21 +70,6 @@ function joinShow(){
             $("#joinForm").fadeIn(2000);
 
 }
-
-$(function(){
-    $("#sendBtn").click(function(){
-        //이메일 정규 표현식 정의
-        var regex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-        //이메일 input 태그의 value값이 이메일 형식과 일치할 경우
-        if(regex.test($("#email").val())){
-            $(".emailCodeField").css('display', 'block');
-            sendNumber();
-        }else{
-            alert("이메일을 입력해주세요");
-        }
-
-    });
-});
 
 //인증 번호 전송
 function sendNumber(){
@@ -119,23 +117,10 @@ function confirmCode(){
             error: function(xhr, status, error) {
             // 오류 발생 시 상세 정보 출력
                 alert(xhr.responseText + "\n상태: " + status + "\n에러: " + error);
+                $("#sendBtn").prop('disabled',false);
             }
 
 
         });
 }
 
-
-
-//인증번호 확인
-//function confirmNumber(){
-//    var number1 = $("#emailCode").val();
-//    var number2 = $("#Confirm").val();
-//
-//    if(number1 == number2 && number1 != '' && number2 != ''){
-//        alert("인증성공");
-//        $("#btn-join").attr("type", "submit");
-//    }else{
-//        alert("인증실패");
-//    }
-//}

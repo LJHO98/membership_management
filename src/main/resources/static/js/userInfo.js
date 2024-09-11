@@ -3,9 +3,20 @@ $(function(){
             addrSearch();
     });
 
-    $("#sendBtn").click(function(){
-        $(".emailCodeField").css('display', 'block');
+    $("#sendBtn").on('click.send', function(){
+        //이메일 정규 표현식 정의
+        var regex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+        //이메일 input 태그의 value값이 이메일 형식과 일치할 경우
+        if(regex.test($("#email").val())){
+            sendNumber();
+//            if(isOk)
+            $(".emailCodeField").css('display', 'block');
+
+        }else{
+            alert("이메일을 입력해주세요");
+        }
     });
+
 
 
 });
@@ -36,4 +47,59 @@ function addrSearch(){
 
         }
     }).open();
+}
+
+//인증 번호 전송
+function sendNumber(){
+    var token = $("meta[name=_csrf]").attr("content");
+    var header = $("meta[name=_csrf_header]").attr("content");
+        $.ajax({
+            url:"/mail",
+            type:"post",
+            dataType:"text",
+            data:{"email" : $("#email").val()},
+            beforeSend : function(xhr){
+                        xhr.setRequestHeader(header, token);
+            },
+            success:function(data){
+                alert(data);
+                //인증번호 확인버튼 활성화
+                $("#verifyBtn").on('click', function(){
+                    confirmCode();
+                    $("#sendBtn").off('click.send');
+                });
+            },
+            error: function(xhr, status, error) {
+                // 오류 발생 시 상세 정보 출력
+                alert(xhr.responseText + "\n상태: " + status + "\n에러: " + error);
+                }
+
+
+        });
+
+}
+
+//인증 번호 확인
+function confirmCode(){
+    var token = $("meta[name=_csrf]").attr("content");
+    var header = $("meta[name=_csrf_header]").attr("content");
+
+    $.ajax({
+        url:"/verifyCode",
+        type:"post",
+        dataType:"text",
+        data:{"emailCode" : $("#emailCode").val(),
+              "email" : $("#email").val()},
+        beforeSend : function(xhr){
+            xhr.setRequestHeader(header, token);
+        },
+        success:function(data){
+            alert(data);
+            $("#btn-join").attr("type", "submit");
+        },
+        error: function(xhr, status, error) {
+        // 오류 발생 시 상세 정보 출력
+            alert(xhr.responseText + "\n상태: " + status + "\n에러: " + error);
+        }
+    });
 }

@@ -1,10 +1,7 @@
 package com.membership.Control;
 
 import com.membership.Dto.MailDto;
-import com.membership.Service.EmailService;
-import com.membership.Service.FindIdService;
-import com.membership.Service.FindPwService;
-import com.membership.Service.MailService;
+import com.membership.Service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +16,10 @@ import java.security.NoSuchAlgorithmException;
 @Controller
 @RequiredArgsConstructor
 public class MailControl {
-    private final MailService mailService;
     private final EmailService emailService;
     private final FindIdService findIdService;
     private final FindPwService findPwService;
+    private final MemberService memberService;
 
     @PostMapping("/findId")
     public @ResponseBody ResponseEntity findId(String email) {
@@ -37,15 +34,20 @@ public class MailControl {
     public @ResponseBody ResponseEntity sendEmail(String email) {
         MailDto dto = findPwService.createMailAndChangePassword(email);
         findPwService.mailSend(dto);
-        return new ResponseEntity<String>("이메일을 확인하세요", HttpStatus.OK);
+        return new ResponseEntity<String>("임시비밀번호 발급, 이메일을 확인하세요.", HttpStatus.OK);
     }
 
 
     // 인증코드 전송
     @PostMapping("/mail")
     public @ResponseBody ResponseEntity<String> sendEmailPath(String email) throws MessagingException {
+//        try{
+//            memberService.validUserEmail(email);
+//        }catch(IllegalStateException e1){
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("이미 존재하는 이메일입니다. 다른 이메일을 입력해주세요.");
+//        }
         emailService.sendEmail(email);
-        return new ResponseEntity<String>("이메일을 확인하세요", HttpStatus.OK);
+        return new ResponseEntity<String>("인증코드 전송, 이메일을 확인하세요", HttpStatus.OK);
     }
 
     // 인증코드 인증

@@ -1,17 +1,18 @@
 package com.membership.Control;
 
 import com.membership.Dto.MemberForm;
+import com.membership.Dto.PwChange;
 import com.membership.Dto.UserInfo;
 import com.membership.Service.MailService;
 import com.membership.Service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -21,9 +22,7 @@ import java.util.Objects;
 @RequestMapping("/member")
 @RequiredArgsConstructor
 public class MemberControl {
-
     private JavaMailSender javaMailSender;
-
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
     private final MailService mailService;
@@ -93,15 +92,33 @@ public class MemberControl {
         return "member/userInfo";
     }
 
-    //비밀번호 변경
+    //회원정보 수정
+    @PostMapping("/userInfo/update")
+    public String userInfoUpdate(UserInfo userInfo){
+        System.out.println(userInfo.getUserId());
+        String userName = userInfo.getUserId();
+        memberService.userInfo(userInfo);
+        return "redirect:/member/userInfo/"+userName;
+    }
+    //비밀번호 변경 페이지
+    @GetMapping("/pwChange")
+    public String showChangePasswordForm(Model model, Principal principal) {
+        PwChange pwChange = new PwChange();
+        pwChange.setUserId(principal.getName());
+        model.addAttribute("pwChange", pwChange);
+        return "member/pwChange";
+    }
 
-
-
-
-
-    //이메일 변경시 이메일 중복확인 후 인증 코드 전송
-
-
-
-
+    //
+    @PostMapping("/pwChange")
+    public String changePassword(@ModelAttribute PwChange pwChange, RedirectAttributes redirectAttributes) {
+        try {
+            memberService.changePassword(pwChange, passwordEncoder);
+            redirectAttributes.addFlashAttribute("message", "비밀번호가 성공적으로 변경되었습니다.");
+            return "redirect:/member/signIn";
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/member/pwChange";
+        }
+    }
 }

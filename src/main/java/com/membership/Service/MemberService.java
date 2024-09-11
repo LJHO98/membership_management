@@ -1,6 +1,7 @@
 package com.membership.Service;
 
 import com.membership.Dto.MemberForm;
+import com.membership.Dto.PwChange;
 import com.membership.Dto.UserInfo;
 import com.membership.Entity.Member;
 import com.membership.Repository.MemberRepository;
@@ -27,6 +28,8 @@ public class MemberService implements UserDetailsService {
         validUserIdEmail(member);
         memberRepository.save(member);
     }
+
+    //중복 이메일, 아이디 확인
     private void validUserIdEmail(Member member){
         Member find=memberRepository.findByUserId(member.getUserId());
         if( find != null){
@@ -37,10 +40,51 @@ public class MemberService implements UserDetailsService {
             throw new IllegalArgumentException("이미 가입된 이메일 입니다.");
         }
     }
+    //중복 이메일 확인
+    public void validUserEmail(String email){
+        Member find = memberRepository.findByEmail(email);
+        if(find != null){
+            throw new IllegalStateException("이미 가입된 이메일 입니다.");
+        }
+    }
+
+    //유저정보 조회
     public UserInfo getUserInfo(String userName){
         Member member = memberRepository.findByUserId(userName);
         return UserInfo.of(member);
     }
+
+    //유저정보 수정
+    public void userInfo(UserInfo userInfo){
+        Member member = memberRepository.findByUserId(userInfo.getUserId());
+        member.setName(userInfo.getName());
+        member.setEmail(userInfo.getEmail());
+        member.setAddr1(userInfo.getAddr1());
+        member.setAddr2(userInfo.getAddr2());
+        member.setZipCode(userInfo.getZipCode());
+        memberRepository.save(member);
+    }
+
+    //비밀번호 변경
+    public void changePassword(PwChange pwChange, PasswordEncoder passwordEncoder) {
+        // 사용자의 userId를 통해 Member 엔티티를 조회
+        Member member = memberRepository.findByUserId(pwChange.getUserId());
+        if (member == null) {
+            throw new IllegalArgumentException("회원 정보가 없습니다.");
+        }
+        // 현재 비밀번호 확인
+        if (!passwordEncoder.matches(pwChange.getCurrentPassword(), member.getPassword())) {
+            throw new IllegalArgumentException("현재 비밀번호가 올바르지 않습니다.");
+        }
+        // 새로운 비밀번호와 확인 비밀번호 일치 확인
+        if (!pwChange.getNewPassword().equals(pwChange.getConfirmNewPassword())) {
+            throw new IllegalArgumentException("새로운 비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+        }
+        // 비밀번호 업데이트
+        member.updatePassword(passwordEncoder.encode(pwChange.getNewPassword()));
+        memberRepository.save(member);
+    }
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

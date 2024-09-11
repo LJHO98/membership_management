@@ -7,10 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserInfo {
-    private Long id;
     private String userId;
     private String email;
-    private String password;
     private String name;
     private String addr1; // 주소
     private String addr2; // 상세주소
@@ -26,5 +24,6 @@ public class UserInfo {
         userInfo.setUserId(member.getUserId());
         return userInfo;
     }
+
 
 }
