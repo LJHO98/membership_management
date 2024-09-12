@@ -56,6 +56,8 @@ public class MemberService implements UserDetailsService {
 
     //유저정보 수정
     public void userInfo(UserInfo userInfo){
+        System.out.println("USERID : " + userInfo.getUserId());
+        System.out.println("USERNAME : " + userInfo.getName());
         Member member = memberRepository.findByUserId(userInfo.getUserId());
         member.setName(userInfo.getName());
         member.setEmail(userInfo.getEmail());
