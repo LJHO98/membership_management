@@ -1,6 +1,7 @@
 package com.membership.Control;
 
 import com.membership.Dto.MailDto;
+import com.membership.Dto.UserInfo;
 import com.membership.Service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -32,26 +33,38 @@ public class MailControl {
     @Transactional
     @PostMapping("/findPw")
     public @ResponseBody ResponseEntity sendEmail(String email) {
-        if(memberService.validUserEmail(email) != null) {
-            MailDto dto = findPwService.createMailAndChangePassword(email);
-            findPwService.mailSend(dto);
-            return new ResponseEntity<String>("임시비밀번호 발급, 이메일을 확인하세요.", HttpStatus.OK);
-        }
-        return new ResponseEntity<String>("가입되지않은 이메일입니다. 가입된 이메일을 입력해주세요", HttpStatus.BAD_REQUEST);
-
+        MailDto dto = findPwService.createMailAndChangePassword(email);
+        findPwService.mailSend(dto);
+        return new ResponseEntity<String>("임시비밀번호 발급, 이메일을 확인하세요.", HttpStatus.OK);
     }
 
 
-    // 인증코드 전송
+    // 인증코드 전송(회원가입 이메일)
     @PostMapping("/mail")
     public @ResponseBody ResponseEntity<String> sendEmailPath(String email) throws MessagingException {
-//        try{
-//            memberService.validUserEmail(email);
-//        }catch(IllegalStateException e1){
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("이미 존재하는 이메일입니다. 다른 이메일을 입력해주세요.");
-//        }
+        try{
+            memberService.validUserEmail(email);
+        }catch(IllegalStateException e1){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("이미 존재하는 이메일입니다. 다른 이메일을 입력해주세요.");
+        }
         emailService.sendEmail(email);
         return new ResponseEntity<String>("인증코드 전송, 이메일을 확인하세요", HttpStatus.OK);
+    }
+    // 인증코드 전송(비밀번호 찾기 이메일)
+    @PostMapping("/check/mail")
+    public @ResponseBody ResponseEntity<String> checkAndSendEmail(String email) throws MessagingException {
+        try{
+            memberService.isExistEmail(email);
+        }catch(IllegalArgumentException e){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+        }
+        emailService.sendEmail(email);
+        return new ResponseEntity<String>("인증코드 전송, 이메일을 확인하세요", HttpStatus.OK);
+    }
+    // 인증코드 전송(유저정보 수정 이메일)
+    @PostMapping("/updateCheck/mail")
+    public @ResponseBody ResponseEntity updateCheckAndSendEmail(String email, String checkEmail) throws MessagingException{
+           return memberService.validEmailOrSendEmail(email, checkEmail);
     }
 
     // 인증코드 인증

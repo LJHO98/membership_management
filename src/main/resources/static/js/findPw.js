@@ -14,7 +14,7 @@ function sendNumber(){
     var token = $("meta[name=_csrf]").attr("content");
     var header = $("meta[name=_csrf_header]").attr("content");
         $.ajax({
-            url:"/mail",
+            url:"/check/mail",
             type:"post",
             dataType:"text",
             data:{"email" : $("#email").val()},
@@ -28,8 +28,8 @@ function sendNumber(){
                 confirmCode();
                 });
             },
-            error:function(){
-                alert("인증번호 발송실패");
+            error:function(xhr, status, error){
+                alert(xhr.responseText + "\n상태: " + status + "\n에러: " + error);
             }
 
         });

@@ -20,6 +20,7 @@
     </div>
     <form method="post" action="/member/userInfo/update" th:object="${userInfo}">
       <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+      <input type="hidden" name="checkEmail" id="checkEmail" th:value="${userInfo.email}">
       <div class="formData">
         <div class="inputField">
           <label th:for="userId">아이디</label>

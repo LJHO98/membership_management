@@ -6,6 +6,8 @@ import com.membership.Dto.UserInfo;
 import com.membership.Entity.Member;
 import com.membership.Repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,12 +16,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.mail.MessagingException;
+import javax.validation.constraints.Email;
+
 
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class MemberService implements UserDetailsService {
     private final MemberRepository memberRepository;
+    private final EmailService emailService;
 
     //회원 가입폼의 내용을 데이터 베이스에 저장
     public void saveMember(MemberForm memberForm, PasswordEncoder passwordEncoder){
@@ -41,16 +47,37 @@ public class MemberService implements UserDetailsService {
         }
     }
     //중복 이메일 확인
-    public String validUserEmail(String email){
+    public void validUserEmail(String email) {
         Member find = memberRepository.findByEmail(email);
-        System.out.println("wwwwwwwwwwwwwwwww"+find.getEmail());
-        String userEmail = find.getEmail();
-        if(find != null){
+        if (find != null) {
             throw new IllegalStateException("이미 가입된 이메일 입니다.");
-        }else{
-            return userEmail;
         }
     }
+    //member 테이블에 이메일 존재여부 확인
+    public void isExistEmail(String email) {
+        Member find = memberRepository.findByEmail(email);
+        if( find == null){
+            throw new IllegalArgumentException("존재하지 않는 이메일입니다. 다시 입력하세요.");
+        }
+    }
+
+    //유저 정보 수정에서 새 이메일 입력시 중복 메일 체크, 기존 이메일 입력시 인증코드 전송
+    public ResponseEntity validEmailOrSendEmail(String email, String checkEmail) throws MessagingException {
+        if(email.equals(checkEmail)){
+            emailService.sendEmail(email);
+        }else{
+            try {
+                validUserEmail(email);
+            }catch (IllegalStateException e){
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("이미 존재하는 이메일입니다. 다른 이메일을 입력해주세요.");
+            }
+            emailService.sendEmail(email);
+            return new ResponseEntity<String>("인증코드 전송, 이메일을 확인하세요", HttpStatus.OK);
+        }
+        return new ResponseEntity<String>("인증코드 전송, 이메일을 확인하세요", HttpStatus.OK);
+    }
+
+
 
     //유저정보 조회
     public UserInfo getUserInfo(String userName){

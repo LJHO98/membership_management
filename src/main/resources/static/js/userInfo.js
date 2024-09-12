@@ -54,10 +54,12 @@ function sendNumber(){
     var token = $("meta[name=_csrf]").attr("content");
     var header = $("meta[name=_csrf_header]").attr("content");
         $.ajax({
-            url:"/mail",
+            url:"/updateCheck/mail",
             type:"post",
             dataType:"text",
-            data:{"email" : $("#email").val()},
+            data:{"email" : $("#email").val(),
+                  "checkEmail" : $("#checkEmail").val()
+            },
             beforeSend : function(xhr){
                         xhr.setRequestHeader(header, token);
             },
