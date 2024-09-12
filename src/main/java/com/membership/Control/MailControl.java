@@ -22,6 +22,7 @@ public class MailControl {
     private final FindPwService findPwService;
     private final MemberService memberService;
 
+
     @PostMapping("/findId")
     public @ResponseBody ResponseEntity findId(String email) {
         findIdService.sendMail(email);

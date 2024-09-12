@@ -1,18 +1,11 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragment/main}">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title layout:fragment="title"></title>
-
-  <th:block layout:fragment="css">
-    <link rel="stylesheet" href="/css/login.css">
-  </th:block>
-  <th:block layout:fragment="script"></th:block>
+  <title></title>
+  <link rel="stylesheet" href="/css/login.css">
 </head>
-<div layout:fragment="main" id="main">
-
+<body>
   <div id="loginWrap">
     <form method="post" action="/member/signIn" >
       <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
@@ -45,5 +38,5 @@
 
   </div>
 
-</div>
+</body>
 </html>

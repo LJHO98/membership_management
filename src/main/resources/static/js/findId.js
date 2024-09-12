@@ -1,6 +1,5 @@
 $(function(){
     $("#find-id-bt").click(function(){
-        alert("아이디 찾기");
         findId();
     });
 });
