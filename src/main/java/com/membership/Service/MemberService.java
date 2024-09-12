@@ -107,6 +107,10 @@ public class MemberService implements UserDetailsService {
         if (!passwordEncoder.matches(pwChange.getCurrentPassword(), member.getPassword())) {
             throw new IllegalArgumentException("현재 비밀번호가 올바르지 않습니다.");
         }
+        // 새 비밀번호와 기존 비밀번호 비교
+        if (passwordEncoder.matches(pwChange.getNewPassword(), member.getPassword())) {
+            throw new NullPointerException("새 비밀번호가 기존 비밀번호와 같습니다. 다시 입력해주세요.");
+        }
         // 새로운 비밀번호와 확인 비밀번호 일치 확인
         if (!pwChange.getNewPassword().equals(pwChange.getConfirmNewPassword())) {
             throw new IllegalStateException("새로운 비밀번호와 비밀번호 확인이 일치하지 않습니다.");

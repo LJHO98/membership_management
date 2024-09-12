@@ -16,7 +16,7 @@
   <div id="joinForm">
     <div class="infoTitle">
       <h3 class="titleText">유저 정보</h3>
-      <button type="button" id="changePwBtn" name="changePwBtn" onclick="location.href='/member/pwChange'">비빌번호 변경</button>
+      <button type="button" id="changePwBtn" name="changePwBtn" onclick="location.href='/member/pwChange'">비밀번호 변경</button>
     </div>
     <form method="post" action="/member/userInfo/update" th:object="${userInfo}">
       <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">

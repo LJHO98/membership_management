@@ -109,22 +109,23 @@ public class MemberControl {
         return "member/pwChange";
     }
 
-    //
+    //비밀번호 변경
     @PostMapping("/pwChange")
     public String changePassword(@Valid @ModelAttribute PwChange pwChange, BindingResult bindingResult ,Model model) {
         if (bindingResult.hasErrors()) { //유효하지 않은 값 존재
-//            model.addAttribute("pwChange", pwChange);
             return "member/pwChange";
         }
         try {
             memberService.changePassword(pwChange, passwordEncoder);
             return "redirect:/member/signIn";
-        } catch (IllegalArgumentException e) {
+        }catch (IllegalArgumentException e) {
             bindingResult.rejectValue("currentPassword", "error.currentPassword", e.getMessage());
-//            model.addAttribute("pwChange", pwChange);
             return "/member/pwChange";
-        } catch (IllegalStateException e) {
+        }catch (IllegalStateException e) {
             bindingResult.rejectValue("confirmNewPassword", "error.confirmNewPassword", e.getMessage());
+            return "/member/pwChange";
+        }catch (NullPointerException e) {
+            bindingResult.rejectValue("newPassword", "error.newPassword", e.getMessage());
             return "/member/pwChange";
         }
     }
