@@ -32,9 +32,13 @@ public class MailControl {
     @Transactional
     @PostMapping("/findPw")
     public @ResponseBody ResponseEntity sendEmail(String email) {
-        MailDto dto = findPwService.createMailAndChangePassword(email);
-        findPwService.mailSend(dto);
-        return new ResponseEntity<String>("임시비밀번호 발급, 이메일을 확인하세요.", HttpStatus.OK);
+        if(memberService.validUserEmail(email) != null) {
+            MailDto dto = findPwService.createMailAndChangePassword(email);
+            findPwService.mailSend(dto);
+            return new ResponseEntity<String>("임시비밀번호 발급, 이메일을 확인하세요.", HttpStatus.OK);
+        }
+        return new ResponseEntity<String>("가입되지않은 이메일입니다. 가입된 이메일을 입력해주세요", HttpStatus.BAD_REQUEST);
+
     }
 
 

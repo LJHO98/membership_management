@@ -41,10 +41,14 @@ public class MemberService implements UserDetailsService {
         }
     }
     //중복 이메일 확인
-    public void validUserEmail(String email){
+    public String validUserEmail(String email){
         Member find = memberRepository.findByEmail(email);
+        System.out.println("wwwwwwwwwwwwwwwww"+find.getEmail());
+        String userEmail = find.getEmail();
         if(find != null){
             throw new IllegalStateException("이미 가입된 이메일 입니다.");
+        }else{
+            return userEmail;
         }
     }
 
@@ -55,9 +59,7 @@ public class MemberService implements UserDetailsService {
     }
 
     //유저정보 수정
-    public void userInfo(UserInfo userInfo){
-        System.out.println("USERID : " + userInfo.getUserId());
-        System.out.println("USERNAME : " + userInfo.getName());
+    public void userInfoUpdate(UserInfo userInfo){
         Member member = memberRepository.findByUserId(userInfo.getUserId());
         member.setName(userInfo.getName());
         member.setEmail(userInfo.getEmail());
@@ -80,7 +82,7 @@ public class MemberService implements UserDetailsService {
         }
         // 새로운 비밀번호와 확인 비밀번호 일치 확인
         if (!pwChange.getNewPassword().equals(pwChange.getConfirmNewPassword())) {
-            throw new IllegalArgumentException("새로운 비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+            throw new IllegalStateException("새로운 비밀번호와 비밀번호 확인이 일치하지 않습니다.");
         }
         // 비밀번호 업데이트
         member.updatePassword(passwordEncoder.encode(pwChange.getNewPassword()));

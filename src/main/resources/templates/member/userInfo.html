@@ -25,7 +25,7 @@
           <label th:for="userId">아이디</label>
           <div class="userKeyInfo">
             <input type="text" th:field="*{userId}" class="formInput"
-                   placeholder="아이디를 입력하세요">
+                   placeholder="아이디를 입력하세요" readonly/>
 <!--            <p th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"-->
 <!--               class="fieldError"></p>-->
           </div>

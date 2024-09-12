@@ -97,7 +97,7 @@ public class MemberControl {
     public String userInfoUpdate(UserInfo userInfo){
         System.out.println(userInfo.getUserId());
         String userName = userInfo.getUserId();
-        memberService.userInfo(userInfo);
+        memberService.userInfoUpdate(userInfo);
         return "redirect:/member/userInfo/"+userName;
     }
     //비밀번호 변경 페이지
@@ -111,14 +111,21 @@ public class MemberControl {
 
     //
     @PostMapping("/pwChange")
-    public String changePassword(@ModelAttribute PwChange pwChange, RedirectAttributes redirectAttributes) {
+    public String changePassword(@Valid @ModelAttribute PwChange pwChange, BindingResult bindingResult ,Model model) {
+        if (bindingResult.hasErrors()) { //유효하지 않은 값 존재
+//            model.addAttribute("pwChange", pwChange);
+            return "member/pwChange";
+        }
         try {
             memberService.changePassword(pwChange, passwordEncoder);
-            redirectAttributes.addFlashAttribute("message", "비밀번호가 성공적으로 변경되었습니다.");
             return "redirect:/member/signIn";
         } catch (IllegalArgumentException e) {
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/member/pwChange";
+            bindingResult.rejectValue("currentPassword", "error.currentPassword", e.getMessage());
+//            model.addAttribute("pwChange", pwChange);
+            return "/member/pwChange";
+        } catch (IllegalStateException e) {
+            bindingResult.rejectValue("confirmNewPassword", "error.confirmNewPassword", e.getMessage());
+            return "/member/pwChange";
         }
     }
 }
