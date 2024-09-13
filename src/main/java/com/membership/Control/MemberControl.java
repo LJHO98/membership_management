@@ -82,19 +82,36 @@ public class MemberControl {
     //유저 정보 조회
     @GetMapping("/userInfo/{userName}")
     public String userInfo(@PathVariable("userName") String userName, Model model, Principal principal){
+        System.out.println("wwwwwwwwwwwwwwwwwwwwwwwwwwww"+principal.getName());
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+userName);
         if(!Objects.equals(principal.getName(), userName)){
             return "redirect:/";
         }
-        UserInfo userInfo = memberService.getUserInfo(userName);
+        UserInfo userInfo = memberService.getUserInfo(principal.getName());
         model.addAttribute("userInfo",userInfo);
+        return "member/userInfo";
+    }
+
+    @GetMapping("/userInfo/error/{userName}")
+    public String userInfoError(@PathVariable("userName") String userName, Model model){
+        // 플래시 속성에서 userInfo를 가져옴, 없을 경우 새로운 객체 생성
+        if (!model.containsAttribute("userInfo")) {
+            model.addAttribute("userInfo", new UserInfo());
+        }
         return "member/userInfo";
     }
 
     //회원정보 수정
     @PostMapping("/userInfo/update")
-    public String userInfoUpdate(UserInfo userInfo){
-        System.out.println(userInfo.getUserId());
+    public String userInfoUpdate(@Valid UserInfo userInfo, BindingResult bindingResult, RedirectAttributes redirectAttributes){
         String userName = userInfo.getUserId();
+
+        if (bindingResult.hasErrors()) {
+            // 유효성 검사 에러 발생 시 플래시 속성에 에러 정보와 폼 데이터를 추가
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userInfo", bindingResult);
+            redirectAttributes.addFlashAttribute("userInfo", userInfo);
+            return "redirect:/member/userInfo/error/"+userName;
+        }
         memberService.userInfoUpdate(userInfo);
         return "redirect:/member/userInfo/"+userName;
     }

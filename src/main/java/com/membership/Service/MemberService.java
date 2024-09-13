@@ -80,8 +80,8 @@ public class MemberService implements UserDetailsService {
 
 
     //유저정보 조회
-    public UserInfo getUserInfo(String userName){
-        Member member = memberRepository.findByUserId(userName);
+    public UserInfo getUserInfo(String userId){
+        Member member = memberRepository.findByUserId(userId);
         return UserInfo.of(member);
     }
 

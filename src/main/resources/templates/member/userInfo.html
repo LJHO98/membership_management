@@ -27,8 +27,8 @@
           <div class="userKeyInfo">
             <input type="text" th:field="*{userId}" class="formInput"
                    placeholder="아이디를 입력하세요" readonly/>
-<!--            <p th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"-->
-<!--               class="fieldError"></p>-->
+            <p th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"
+               class="fieldError"></p>
           </div>
         </div>
         <div class="inputField">
@@ -36,8 +36,8 @@
           <div class="inputEmail">
             <input type="email" th:field="*{email}" class="formInput email"
                    placeholder="Email을 입력하세요">
-<!--            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"-->
-<!--               class="fieldError"></p>-->
+            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+               class="fieldError"></p>
             <button type="button" id="sendBtn" name="sendBtn">인증번호 받기</button>
           </div>
         </div>
@@ -54,8 +54,8 @@
           <label th:for="name">이름</label>
           <input type="text" th:field="*{name}" class="formInput"
                  placeholder="이름을 입력하세요">
-<!--          <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"-->
-<!--             class="fieldError"></p>-->
+          <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+             class="fieldError"></p>
         </div>
         <div class="inputField">
           <label th:for="zipCode">우편번호</label>
@@ -66,15 +66,15 @@
           <label th:for="addr1">기본주소</label>
           <input type="text" th:field="*{addr1}" class="formInputLong"
                  placeholder="주소를 검색 해주세요">
-<!--          <p th:if="${#fields.hasErrors('addr1')}" th:errors="*{addr1}"-->
-<!--             class="fieldError"></p>-->
+          <p th:if="${#fields.hasErrors('addr1')}" th:errors="*{addr1}"
+             class="fieldError"></p>
         </div>
         <div class="inputField">
           <label th:for="addr2">상세주소</label>
           <input type="text" th:field="*{addr2}" class="formInputLong"
                  placeholder="상세주소를 입력해주세요">
-<!--          <p th:if="${#fields.hasErrors('addr2')}" th:errors="*{addr2}"-->
-<!--             class="fieldError"></p>-->
+          <p th:if="${#fields.hasErrors('addr2')}" th:errors="*{addr2}"
+             class="fieldError"></p>
         </div>
         <div class="joinBt">
           <button id="btn-join" type="button">정보 수정</button>
