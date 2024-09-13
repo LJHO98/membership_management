@@ -6,6 +6,7 @@ import com.membership.Repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,6 +19,8 @@ public class FindPwService {
 
     private final MemberRepository memberRepository;
     private final JavaMailSender javaMailSender;
+    @Value("${spring.mail.username}")
+    private String configEmail;
 
     // 임시 비밀번호 생성
     public static String getTempPassword(){
@@ -40,7 +43,7 @@ public class FindPwService {
         String str = getTempPassword();
         MailDto dto = new MailDto();
         dto.setAddress(email);
-        dto.setTitle("임시비밀번호 안내 이메일 입니다.");
+        dto.setTitle("안녕하세요. DW고양이임시보호소입니다.");
         dto.setMessage("안녕하세요. 임시비밀번호 안내 관련 이메일 입니다." + " 회원님의 임시 비밀번호는 "
                 + str + " 입니다." + "로그인 후에 비밀번호를 변경해주세요!");
         updatePassword(str, email);
@@ -54,8 +57,8 @@ public class FindPwService {
         message.setTo(mailDto.getAddress());
         message.setSubject(mailDto.getTitle());
         message.setText(mailDto.getMessage());
-        message.setFrom("smy2363@gmail.com");
-        message.setReplyTo("smy2363@gmail.com");
+        message.setFrom(configEmail);
+        message.setReplyTo(configEmail);
         System.out.println("message"+message);
         javaMailSender.send(message);
     }

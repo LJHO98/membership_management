@@ -36,14 +36,14 @@ public class EmailService {
     private MimeMessage createEmailForm(String email) throws MessagingException {
 
         String authCode = createdCode();
-
         MimeMessage message = javaMailSender.createMimeMessage();
         message.addRecipients(MimeMessage.RecipientType.TO, email);
-        message.setSubject("안녕하세요 인증번호입니다.");
+        message.setSubject("안녕하세요 DW고양이보호소입니다.");
         message.setFrom(configEmail);
-        message.setText(authCode, "utf-8", "html");
 
-        redisUtil.setDataExpire(email, authCode, 60L);
+        message.setText("보내드린 인증번호는"+authCode+"입니다", "utf-8", "html");
+
+        redisUtil.setDataExpire(email, authCode, 60*5L);
 
         return message;
     }
