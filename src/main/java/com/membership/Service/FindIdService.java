@@ -15,7 +15,7 @@ import javax.mail.internet.MimeMessage;
 public class FindIdService {
     private final MemberRepository memberRepository;
     private final JavaMailSender javaMailSender;
-    private String senderEmail = "smy2363@gmail.com";
+    private  String senderEmail = "smy2363@gmail.com";
 
 
     public MimeMessage createMail(String email) {

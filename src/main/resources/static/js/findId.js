@@ -17,10 +17,9 @@ function findId(){
                 success:function(data){
                     alert(data);
                     location.href="/member/signIn";
-
                 },
-                error:function(){
-                    alert("이메일 발송실패");
+                error:function(xhr, status, error){
+                    alert(xhr.responseText + "\n상태: " + status + "\n에러: " + error);
                 }
     });
 

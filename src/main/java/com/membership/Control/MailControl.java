@@ -22,10 +22,17 @@ public class MailControl {
     private final FindPwService findPwService;
     private final MemberService memberService;
 
-
+    //아이디 찾기
     @PostMapping("/findId")
     public @ResponseBody ResponseEntity findId(String email) {
+
+        try{
+            memberService.isExistEmail(email);
+        }catch(IllegalArgumentException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
         findIdService.sendMail(email);
+
         return new ResponseEntity<String>("이메일을 확인하세요", HttpStatus.OK);
     }
 
@@ -46,7 +53,7 @@ public class MailControl {
         try{
             memberService.validUserEmail(email);
         }catch(IllegalStateException e1){
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("이미 존재하는 이메일입니다. 다른 이메일을 입력해주세요.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("이미 존재하는 이메일입니다. 다른 이메일을 입력해주세요.");
         }
         emailService.sendEmail(email);
         return new ResponseEntity<String>("인증코드 전송, 이메일을 확인하세요", HttpStatus.OK);
@@ -57,7 +64,7 @@ public class MailControl {
         try{
             memberService.isExistEmail(email);
         }catch(IllegalArgumentException e){
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
         emailService.sendEmail(email);
         return new ResponseEntity<String>("인증코드 전송, 이메일을 확인하세요", HttpStatus.OK);

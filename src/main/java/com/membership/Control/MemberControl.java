@@ -3,7 +3,6 @@ package com.membership.Control;
 import com.membership.Dto.MemberForm;
 import com.membership.Dto.PwChange;
 import com.membership.Dto.UserInfo;
-import com.membership.Service.MailService;
 import com.membership.Service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -25,7 +24,6 @@ public class MemberControl {
     private JavaMailSender javaMailSender;
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
-    private final MailService mailService;
 
     // 로그인 페이지
     @GetMapping("/signIn")
