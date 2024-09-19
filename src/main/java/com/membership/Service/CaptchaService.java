@@ -1,22 +1,32 @@
 package com.membership.Service;
 
+import com.membership.Config.CaptchaConfig;
 import com.membership.Util.RecaptchaResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Map;
 
 @Service
 public class CaptchaService {
 
-    @Value("${recaptcha.secret}")
-    private String recaptchaSecret;
+    @Autowired
+    private CaptchaConfig captchaConfig;
 
-    private static final String RECAPTCHA_VERIFY_URL = "https://www.google.com/recaptcha/api/siteverify";
-
-    public boolean validateCaptcha(String captchaResponse) {
+    public boolean verifyCaptcha(String response) {
+        String url = "https://www.google.com/recaptcha/api/siteverify";
         RestTemplate restTemplate = new RestTemplate();
-        String url = String.format("%s?secret=%s&response=%s", RECAPTCHA_VERIFY_URL, recaptchaSecret, captchaResponse);
-        RecaptchaResponse response = restTemplate.postForObject(url, null, RecaptchaResponse.class);
-        return response.isSuccess();
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("secret", captchaConfig.getSecret());
+        params.add("response", response);
+
+        ResponseEntity<Map> responseEntity = restTemplate.postForEntity(url, params, Map.class);
+        Map<String, Object> body = responseEntity.getBody();
+        return (Boolean) body.get("success");
     }
 }

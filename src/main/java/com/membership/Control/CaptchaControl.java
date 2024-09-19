@@ -13,16 +13,19 @@ public class CaptchaControl {
     private CaptchaService captchaService;
 
     @PostMapping("/member/signIn")
-    public String submitForm(@RequestParam("g-recaptcha-response") String captchaResponse,
-                             @RequestParam("userId") String userId,
-                             @RequestParam("password") String password,
-                             Model model) {
-        boolean isCaptchaValid = captchaService.validateCaptcha(captchaResponse);
+    public String signIn(@RequestParam("userId") String userId,
+                         @RequestParam("password") String password,
+                         @RequestParam("g-recaptcha-response") String recaptchaResponse,
+                         Model model) {
+        boolean isCaptchaValid = captchaService.verifyCaptcha(recaptchaResponse);
         if (!isCaptchaValid) {
-            model.addAttribute("loginFailMsg", "Invalid Captcha");
+            model.addAttribute("loginFailMsg", "reCAPTCHA 검증에 실패했습니다.");
             return "login";
         }
-        // 로그인 처리 로직
+
+        // 로그인 로직 추가
+        // ...
+
         return "redirect:/home";
     }
 }
