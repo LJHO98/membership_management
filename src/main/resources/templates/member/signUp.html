@@ -46,6 +46,7 @@
 <body>
 <script src="/js/signUp.js"></script>
 <div id="joinWrap">
+  <div id="alert-box"></div>
 
   <div id="progress">
     <p class="stage stage_a"><i class="bi bi-1-circle"></i>약관동의</p>
@@ -153,6 +154,7 @@
           <div class="inputEmail">
             <input type="text" id="emailCode" name = "emailCode" class="formInput emailCode"
                    placeholder="인증코드를 입력하세요">
+            <span class="time"></span> <!-- 타이머 표시 -->
             <button type="button" id="confirmBtn" name="confirmBtn">인증</button>
           </div>
         </div>

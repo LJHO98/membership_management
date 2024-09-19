@@ -198,10 +198,16 @@
 }
 
 #joinForm .inputEmail{
+    position:relative;
     display:flex;
     width:80%;
-
  }
+
+#joinForm .inputEmail .time{
+    position: absolute;
+    top: 5px;
+    right: 290px;
+}
 
  #joinForm .inputEmail .email{
     width:70%;
@@ -229,3 +235,15 @@
         padding: 5px 0;
         cursor: pointer;
     }
+
+#alert-box{
+    display: none;
+    background-color: white;
+    padding: 10px;
+    border: 1px solid black;
+    position: fixed;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+}

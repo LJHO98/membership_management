@@ -76,3 +76,25 @@
     background: #aaa;
     color: #fff;
 }
+
+#alert-box{
+    display: none;
+    background-color: white;
+    padding: 10px;
+    border: 1px solid black;
+    position: fixed;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+}
+
+#input-pw .emailCode-wrap{
+    position:relative;
+}
+
+#input-pw .emailCode-wrap .time{
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}

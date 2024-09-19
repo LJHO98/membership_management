@@ -5,6 +5,7 @@ import com.membership.Repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
@@ -40,6 +41,7 @@ public class FindIdService {
         return message;
     }
 
+    @Async
     public void sendMail(String email){
         MimeMessage message = createMail(email);
         javaMailSender.send(message);

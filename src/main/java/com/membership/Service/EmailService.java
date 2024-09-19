@@ -44,7 +44,7 @@ public class EmailService {
 
         message.setText("보내드린 인증번호는"+authCode+"입니다", "utf-8", "html");
 
-        redisUtil.setDataExpire(email, authCode, 60*1L);
+        redisUtil.setDataExpire(email, authCode, 60*3L);
 
         return message;
     }

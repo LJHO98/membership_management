@@ -12,6 +12,7 @@
 </head>
 <body>
 <div id="wrap">
+    <div id="alert-box"></div>
     <h1>비밀번호찾기 페이지</h1>
     <div id="input-pw">
         <div class="input-group">
@@ -21,8 +22,10 @@
         </div>
         <div class="input-group">
             <span>인증코드 확인 : </span>
-            <input type="text" id="emailCode" name="emailCode">
-            <span class="time"></span> <!-- 타이머 표시 -->
+            <div class="emailCode-wrap">
+                <input type="text" id="emailCode" name="emailCode">
+                <span class="time"></span> <!-- 타이머 표시 -->
+            </div>
             <button type="button" name="confirmBtn" id="confirmBtn">인증코드확인</button>
         </div>
         <button id="find-pw-bt" type="button">임시 비밀번호 발급</button>

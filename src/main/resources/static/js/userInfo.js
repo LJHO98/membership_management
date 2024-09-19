@@ -8,12 +8,11 @@ $(function(){
         var regex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
         //이메일 input 태그의 value값이 이메일 형식과 일치할 경우
         if(regex.test($("#email").val())){
-            sendNumber();
-//            if(isOk)
             $(".emailCodeField").css('display', 'block');
-
+            $("#sendBtn").prop('disabled',true);
+            sendNumber();
         }else{
-            alert("이메일을 입력해주세요");
+            showAlert("이메일을 입력해주세요");
         }
     });
 
@@ -64,16 +63,24 @@ function sendNumber(){
                         xhr.setRequestHeader(header, token);
             },
             success:function(data){
-                alert(data);
+                showAlert(data);
                 //인증번호 확인버튼 활성화
                 $("#verifyBtn").on('click', function(){
                     confirmCode();
-                    $("#sendBtn").off('click.send');
+
                 });
+                // "인증번호 발급" 버튼 클릭 이벤트 핸들러
+                clearInterval(countdown);
+                seconds = 180; // 3분
+
+                updateCountdown();
+                // 1초마다 카운트다운 업데이트
+                countdown = setInterval(updateCountdown, 1000);
             },
             error: function(xhr, status, error) {
                 // 오류 발생 시 상세 정보 출력
-                alert(xhr.responseText + "\n상태: " + status + "\n에러: " + error);
+                showAlert(xhr.responseText + "\n상태: " + status + "\n에러: " + error);
+                $("#sendBtn").prop('disabled',false);
                 }
 
 
@@ -96,12 +103,42 @@ function confirmCode(){
             xhr.setRequestHeader(header, token);
         },
         success:function(data){
-            alert(data);
+            showAlert(data);
             $("#btn-join").attr("type", "submit");
         },
         error: function(xhr, status, error) {
         // 오류 발생 시 상세 정보 출력
-            alert(xhr.responseText + "\n상태: " + status + "\n에러: " + error);
+            showAlert(xhr.responseText + "\n상태: " + status + "\n에러: " + error);
+            $("#sendBtn").prop('disabled',false);
         }
     });
+}
+
+//인증코드 유효시간 표시
+    // 시간을 업데이트하고 화면에 표시하는 함수
+    let seconds; // 남은 시간 변수
+    let countdown; // 카운트다운을 관리하는 변수
+
+    const updateCountdown = function() {
+
+
+        if (seconds >= 0) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            $(".time").text(`${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`);
+            seconds--;
+        } else {
+            clearInterval(countdown);
+            alert('인증번호 유효시간이 만료되었습니다.');
+        }
+    };
+
+const showAlert = (message) => {
+    const alertBox = $("#alert-box");
+    alertBox.text(message);
+    alertBox.show();
+
+    setTimeout(function(){
+        alertBox.fadeOut();
+    }, 3000); // 3초 후에 메시지 사라짐
 }
