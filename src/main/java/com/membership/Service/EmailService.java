@@ -34,6 +34,7 @@ public class EmailService {
                 .toString();
     }
 
+    //이메일 내용 작성
     private MimeMessage createEmailForm(String email) throws MessagingException {
 
         String authCode = createdCode();
@@ -42,12 +43,20 @@ public class EmailService {
         message.setSubject("안녕하세요 DW고양이보호소입니다.");
         message.setFrom(configEmail);
 
-        message.setText("보내드린 인증번호는"+authCode+"입니다", "utf-8", "html");
+        String body="";
+        body += "<h3>" + "이메일 인증코드는 " + "</h3>";
+        body += "<h1>" + authCode + "</h1>";
+        body += "<h3>" + "입니다." + "</h3>";
+        body += "<h3>" + "해당 인증코드는 3분 후 만료됩니다." +"</h3>";
+
+        message.setText(body , "utf-8", "html");
 
         redisUtil.setDataExpire(email, authCode, 60*3L);
 
         return message;
     }
+
+    //이메일 보내기
     @Async
     public void sendEmail(String toEmail) throws MessagingException {
         if (redisUtil.existData(toEmail)) {
@@ -59,6 +68,7 @@ public class EmailService {
         javaMailSender.send(emailForm);
     }
 
+    //redis의 저장되어있는 인증코드와 사용자가 입력한 인증코드 비교
     public Boolean verifyEmailCode(String email, String code) {
         String codeFoundByEmail = redisUtil.getData(email);
         if (codeFoundByEmail == null) {

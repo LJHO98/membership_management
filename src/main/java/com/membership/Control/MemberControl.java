@@ -82,8 +82,7 @@ public class MemberControl {
     //유저 정보 조회
     @GetMapping("/userInfo/{userName}")
     public String userInfo(@PathVariable("userName") String userName, Model model, Principal principal){
-        System.out.println("wwwwwwwwwwwwwwwwwwwwwwwwwwww"+principal.getName());
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+userName);
+        //비정상 접근시 메인화면으로 이동
         if(!Objects.equals(principal.getName(), userName)){
             return "redirect:/";
         }
