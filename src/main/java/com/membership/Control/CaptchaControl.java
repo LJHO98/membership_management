@@ -12,14 +12,17 @@ public class CaptchaControl {
     @Autowired
     private CaptchaService captchaService;
 
-    @PostMapping("/submit")
-    public String submitForm(@RequestParam("g-recaptcha-response") String captchaResponse, Model model) {
+    @PostMapping("/member/signIn")
+    public String submitForm(@RequestParam("g-recaptcha-response") String captchaResponse,
+                             @RequestParam("userId") String userId,
+                             @RequestParam("password") String password,
+                             Model model) {
         boolean isCaptchaValid = captchaService.validateCaptcha(captchaResponse);
         if (!isCaptchaValid) {
-            model.addAttribute("error", "Invalid Captcha");
-            return "form";
+            model.addAttribute("loginFailMsg", "Invalid Captcha");
+            return "login";
         }
-        // 폼 처리 로직
-        return "success";
+        // 로그인 처리 로직
+        return "redirect:/home";
     }
 }
