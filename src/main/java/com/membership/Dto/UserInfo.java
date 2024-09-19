@@ -25,7 +25,7 @@ public class UserInfo {
 
     private int zipCode;  // 우편번호
 
-    public static UserInfo of(Member member){
+    public static UserInfo of(Member member) {
         UserInfo userInfo = new UserInfo();
         userInfo.setName(member.getName());
         userInfo.setEmail(member.getEmail());
