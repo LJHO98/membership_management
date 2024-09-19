@@ -2,41 +2,42 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title></title>
+  <title>로그인</title>
   <link rel="stylesheet" href="/css/login.css">
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
-  <div id="loginWrap">
-    <form method="post" action="/member/signIn" >
-      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-      <div class="formData">
-        <div class="formTitle">로그인</div>
-        <div class="inputField">
-          <input type="text" name="userId" id="userId" placeholder="ID">
-        </div>
-        <div class="inputField">
-          <input type="password" name="password" id="password" placeholder="PASSWORD">
-        </div>
-
-        <p th:if="${loginFailMsg}" th:text="${loginFailMsg}"
-           style="color:red; padding-bottom:20px;"></p>
-
-        <div class="loginBt">
-          <button>Login</button>
-        </div>
+<div id="loginWrap">
+  <form method="post" action="/member/signIn">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+    <div class="formData">
+      <div class="formTitle">로그인</div>
+      <div class="inputField">
+        <input type="text" name="userId" id="userId" placeholder="ID">
+      </div>
+      <div class="inputField">
+        <input type="password" name="password" id="password" placeholder="PASSWORD">
       </div>
 
-    </form>
+      <p th:if="${loginFailMsg}" th:text="${loginFailMsg}"
+         style="color:red; padding-bottom:20px;"></p>
 
-    <div class="forget">
-      <a href="/member/findId">아이디 찾기</a>
-      <a href="/member/findPw">비밀번호 찾기</a>
-    </div>
-    <div class="joinLink">
-      <a href="/member/signUp">회원가입</a>
-    </div>
+      <!-- reCAPTCHA 위젯 추가 -->
+      <div class="g-recaptcha" data-sitekey="6LcpQ0kqAAAAAKz-QvCZ9ETQp97ZX7jlVd2If25x"></div>
 
+      <div class="loginBt">
+        <button>Login</button>
+      </div>
+    </div>
+  </form>
+
+  <div class="forget">
+    <a href="/member/findId">아이디 찾기</a>
+    <a href="/member/findPw">비밀번호 찾기</a>
   </div>
-
+  <div class="joinLink">
+    <a href="/member/signUp">회원가입</a>
+  </div>
+</div>
 </body>
 </html>
