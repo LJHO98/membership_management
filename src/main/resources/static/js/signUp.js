@@ -90,8 +90,8 @@ function sendNumber(){
                 confirmCode();
                 });
             },
-            error:function(){
-                alert("인증번호 발송실패");
+            error:function(xhr, status, error){
+                alert(xhr.responseText + "\n상태: " + status + "\n에러: " + error);
             }
 
         });

@@ -103,6 +103,8 @@
 }
 
 #terms .btn_cancel{
+    text-decoration-line: none;
+    color: inherit;
     width: 48%;
     padding: 15px 0;
     border: 1px solid #bbb;
@@ -112,6 +114,7 @@
 }
 
 #terms .btn_agree{
+    cursor:pointer;
     width: 48%;
     padding: 15px 0;
     border: 1px solid #bbb;
@@ -120,6 +123,18 @@
     font-size: 20px;
     background: #fff;
 }
+
+#terms .btn_cancel:hover{
+    background:#FD3C3C;
+    color:white;
+}
+
+#terms .btn_agree:hover{
+    background:#5C7BFA;
+    color:white;
+}
+
+
 
 #joinForm .inputField{
     display: flex;
