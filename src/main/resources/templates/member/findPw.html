@@ -5,7 +5,7 @@
     <title>Title</title>
     <meta name="_csrf" th:content="${_csrf.token}" />
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
-    <!-- jquery CDN-->
+    <!-- jQuery CDN -->
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/css/findPw.css">
     <script src="/js/findPw.js"></script>
@@ -22,11 +22,11 @@
         <div class="input-group">
             <span>인증코드 확인 : </span>
             <input type="text" id="emailCode" name="emailCode">
+            <span class="time"></span> <!-- 타이머 표시 -->
             <button type="button" name="confirmBtn" id="confirmBtn">인증코드확인</button>
         </div>
         <button id="find-pw-bt" type="button">임시 비밀번호 발급</button>
     </div>
 </div>
 </body>
-
 </html>

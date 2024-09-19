@@ -92,6 +92,7 @@ function sendNumber(){
             },
             error:function(xhr, status, error){
                 alert(xhr.responseText + "\n상태: " + status + "\n에러: " + error);
+                $("#sendBtn").prop('disabled',false);
             }
 
         });
