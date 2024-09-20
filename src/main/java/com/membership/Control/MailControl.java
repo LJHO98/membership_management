@@ -42,7 +42,11 @@ public class MailControl {
     @PostMapping("/findPw")
     public @ResponseBody ResponseEntity sendEmail(String email) {
         MailDto dto = findPwService.createMailAndChangePassword(email);
-        findPwService.mailSend(dto);
+        try {
+            findPwService.mailSend(dto);
+        }catch (MessagingException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("임시비밀번호 발급 실패.");
+        }
         return new ResponseEntity<String>("임시비밀번호 발급, 이메일을 확인하세요.", HttpStatus.OK);
     }
 

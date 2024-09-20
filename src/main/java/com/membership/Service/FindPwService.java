@@ -9,9 +9,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 
 @Service
 @RequiredArgsConstructor
@@ -41,25 +45,31 @@ public class FindPwService {
     // 메일 내용을 생성하고 임시 비밀번호로 회원 비밀번호를 변경
     public MailDto createMailAndChangePassword(String email) {
         String str = getTempPassword();
+        String body="";
+        body += "<h3>" + "안녕하세요. 임시비밀번호 안내 관련 이메일 입니다. " + "</h3>";
+        body += "<h3>" + "회원님의 임시 비밀번호는 " + "</h3>";
+        body += "<h1>" + str + "</h1>";
+        body += "<h3>" + "입니다." + "</h3>";
+        body += "<h3>" + "로그인 후에 비밀번호를 변경해주세요!" +"</h3>";
         MailDto dto = new MailDto();
         dto.setAddress(email);
         dto.setTitle("안녕하세요. DW고양이임시보호소입니다.");
-        dto.setMessage("안녕하세요. 임시비밀번호 안내 관련 이메일 입니다." + " 회원님의 임시 비밀번호는 "
-                + str + " 입니다." + "로그인 후에 비밀번호를 변경해주세요!");
+        dto.setMessage(body);
         updatePassword(str, email);
         return dto;
     }
 
     // MailDto를 바탕으로 실제 이메일 전송
-    public void mailSend(MailDto mailDto) {
-        System.out.println("전송 완료!");
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(mailDto.getAddress());
-        message.setSubject(mailDto.getTitle());
-        message.setText(mailDto.getMessage());
-        message.setFrom(configEmail);
-        message.setReplyTo(configEmail);
-        System.out.println("message"+message);
+    public void mailSend(MailDto mailDto) throws MessagingException {
+        MimeMessage message = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, "utf-8");
+
+        helper.setTo(mailDto.getAddress());
+        helper.setSubject(mailDto.getTitle());
+        helper.setText(mailDto.getMessage(), true); // true로 설정하여 HTML로 처리
+        helper.setFrom(configEmail);
+        helper.setReplyTo(configEmail);
+
         javaMailSender.send(message);
     }
 
