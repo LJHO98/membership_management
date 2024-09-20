@@ -37,6 +37,7 @@ function sendNumber(){
                 updateCountdown();
                 // 1초마다 카운트다운 업데이트
                 countdown = setInterval(updateCountdown, 1000);
+                $("#emailCode").focus();
 
             },
             error:function(xhr, status, error){

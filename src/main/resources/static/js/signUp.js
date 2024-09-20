@@ -38,6 +38,7 @@ $(function(){
     $(".btn_agree").click(function(){
         if( $("#chk1").prop('checked') && $("#chk2").prop('checked') ){
             joinShow();
+            $("#userId").focus();
         }else{
             alert("필수 항목을 동의 하셔야 합니다.")
         }
@@ -96,6 +97,7 @@ function sendNumber(){
                 updateCountdown();
                 // 1초마다 카운트다운 업데이트
                 countdown = setInterval(updateCountdown, 1000);
+                $("#emailCode").focus();
             },
             error:function(xhr, status, error){
                 showAlert(xhr.responseText + "\n상태: " + status + "\n에러: " + error);
