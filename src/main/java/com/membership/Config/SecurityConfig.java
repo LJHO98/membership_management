@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -38,6 +39,8 @@ public class SecurityConfig {
                         String recaptchaResponse = request.getParameter("g-recaptcha-response");
                         boolean isCaptchaValid = captchaService.verifyCaptcha(recaptchaResponse);
                         if (!isCaptchaValid) {
+                            // CAPTCHA 인증 실패 시 로그아웃 처리
+                            new SecurityContextLogoutHandler().logout(request, response, authentication);
                             response.sendRedirect("/member/signIn/error/captcha");
                         } else {
                             response.sendRedirect("/");
