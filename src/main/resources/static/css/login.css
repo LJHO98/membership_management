@@ -1,5 +1,5 @@
 #loginWrap {
-    margin: 150px auto 200px auto;
+    margin: 70px auto 200px auto;
     width: 600px;
     font-size: 30px;
 }
@@ -66,4 +66,8 @@
 
 .joinLink a {
     color: blue;
+}
+
+.g-recaptcha {
+    margin-bottom : 20px;
 }
