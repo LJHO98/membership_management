@@ -1,6 +1,8 @@
 package com.membership.Config;
 
+import com.membership.Service.CaptchaService;
 import com.membership.Service.MemberService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,10 +16,11 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
+    private final MemberService memberService;
+    private final CaptchaService captchaService;
 
-    @Autowired
-    MemberService memberService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -31,6 +34,15 @@ public class SecurityConfig {
                     .usernameParameter("userId")
                     .passwordParameter("password")
                     .failureUrl("/member/signIn/error")
+                    .successHandler((request, response, authentication) -> {
+                        String recaptchaResponse = request.getParameter("g-recaptcha-response");
+                        boolean isCaptchaValid = captchaService.verifyCaptcha(recaptchaResponse);
+                        if (!isCaptchaValid) {
+                            response.sendRedirect("/member/signIn/error/captcha");
+                        } else {
+                            response.sendRedirect("/");
+                        }
+                    })
                     .and()
                     .logout()
                     .logoutRequestMatcher( new AntPathRequestMatcher("/member/logout"))

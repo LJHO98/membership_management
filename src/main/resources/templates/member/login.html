@@ -2,7 +2,8 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title></title>
+  <title>로그인</title>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <link rel="stylesheet" href="/css/login.css">
 </head>
 <body>
@@ -20,6 +21,9 @@
 
         <p th:if="${loginFailMsg}" th:text="${loginFailMsg}"
            style="color:red; padding-bottom:20px;"></p>
+
+        <!-- reCAPTCHA 위젯 추가 -->
+        <div class="g-recaptcha" data-sitekey="6LcpQ0kqAAAAAKz-QvCZ9ETQp97ZX7jlVd2If25x"></div>
 
         <div class="loginBt">
           <button>Login</button>

@@ -79,6 +79,13 @@ public class MemberControl {
         return "member/login";
     }
 
+    //캡차 인증 실패
+    @GetMapping("/signIn/error/captcha")
+    public String captchaFail(Model model){
+        model.addAttribute("loginFailMsg", "캡챠 인증 실패");
+        return "member/login";
+    }
+
     //유저 정보 조회
     @GetMapping("/userInfo/{userName}")
     public String userInfo(@PathVariable("userName") String userName, Model model, Principal principal){
